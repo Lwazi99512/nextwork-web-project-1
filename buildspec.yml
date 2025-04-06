@@ -4,22 +4,24 @@ phases:
   install:
     runtime-versions:
       java: corretto8
+    commands:
+      - echo "Installing corretto(OpenJDK) version 8 ..."
   pre_build:
     commands:
       - echo Logging in to AWS CodeArtifact...
-      - CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain nextwork --domain-owner 522154353718 --region eu-west-2 --query authorizationToken --output text`
+      - CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain nextwork --domain-owner 522154353718 --region eu-west-2 --query authorizationToken --output text)
       - export CODEARTIFACT_AUTH_TOKEN
   build:
     commands:
       - echo Build started on `date`
-      - mvn clean install -s settings.xml
+      - mvn clean install
+      - mvn package
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Packaging artifacts...
-      - mvn package -s settings.xml
-
+      - mvn package
 artifacts:
   files:
     - target/*.war
-  discard-paths: no
+
