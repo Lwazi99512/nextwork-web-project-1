@@ -7,17 +7,17 @@ phases:
   pre_build:
     commands:
       - echo Logging in to AWS CodeArtifact...
-      - CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain nextwork --domain-owner 522154353718 --region eu-west-2 --query authorizationToken --output text`
+      - CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain nextwork --domain-owner <Your-AWS-ID> --region eu-west-2 --query authorizationToken --output text`
       - export CODEARTIFACT_AUTH_TOKEN
   build:
     commands:
       - echo Build started on `date`
-      - mvn clean install
+      - mvn clean install -s settings.xml
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Packaging artifacts...
-      - mvn package
+      - mvn package -s settings.xml
 
 artifacts:
   files:
