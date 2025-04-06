@@ -21,7 +21,10 @@ phases:
       - echo Build completed on `date`
       - echo Packaging artifacts...
       - mvn package
+
 artifacts:
   files:
     - target/*.war
 
+cache:
+  paths: []
