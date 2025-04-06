@@ -15,12 +15,10 @@ phases:
     commands:
       - echo Build started on `date`
       - mvn clean install
-      - mvn package
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Packaging artifacts...
-      - mvn package
 
 artifacts:
   files:
